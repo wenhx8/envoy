@@ -1,0 +1,39 @@
+from centos
+RUN yum install -y wget openssl-devel libcurl-devel expat-devel patch libtool libatomic
+RUN yum install -y git cmake llvm clang
+RUN yum install -y python3 make automake gcc-c++ kernel-devel
+RUN yum --enablerepo="powertools" install -y re2c libstdc++-static
+RUN cp /usr/bin/python3 /usr/bin/python
+RUN git config --global url."https://hub.fastgit.org".insteadOf https://github.com
+RUN git clone https://github.com/ninja-build/ninja.git
+RUN cd ninja && ./configure.py --bootstrap
+RUN cp ninja/ninja /usr/bin/ninja
+
+WORKDIR /root
+RUN wget https://studygolang.com/dl/golang/go1.16.5.linux-amd64.tar.gz
+RUN tar -xf go1.16.5.linux-amd64.tar.gz 
+ENV GOROOT /root/go
+ENV GOBIN "$GOROOT/bin"
+ENV PATH "$PATH:$GOROOT:$GOBIN"
+ENV GOPROXY https://goproxy.cn
+ENV GO111MODULE on
+ENV GOPATH /root/.go
+COPY jdk-11.0.11_linux-x64_bin.tar.gz /root/
+RUN tar -xf jdk-11.0.11_linux-x64_bin.tar.gz
+ENV JAVA_HOME /root/jdk-11.0.11
+ENV CLASSPATH .:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/jre/lib/dt.jar:$JAVA_HOME/lib/tool.jar
+ENV PATH $PATH:$JAVA_HOME/bin
+
+# 然后下载所需的bazel工具
+RUN go get -u github.com/bazelbuild/buildtools/buildifier
+RUN go get -u github.com/bazelbuild/buildtools/buildozer
+RUN git clone https://github.com/wenhx8/gn.git
+RUN cd gn && python build/gen.py && ninja -C out
+RUN cp gn/out/gn /usr/bin/gn
+
+
+COPY bazelisk-linux-amd64 /usr/bin/bazel
+RUN cp /root/go/bin/buildifier /usr/bin/buildifier
+RUN cp /root/go/bin/buildozer /usr/bin/buildozer
+RUN git clone https://github.com/envoyproxy/envoy.git
+RUN cd envoy && bazel build //source/exe:envoy-static
