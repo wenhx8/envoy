@@ -17,8 +17,7 @@ ARG VERSION
 RUN set -eux; \
     \
     git clone https://gn.googlesource.com/gn; \
-    cd gn; \
-    git checkout ${VERSION}; \
+    cd gn; \   
     python build/gen.py; \
     ninja -v -C out; \
     out/gn_unittests; \
