@@ -1,0 +1,2 @@
+from docker.io/wenhx8/myenvoy_centos:1.17
+RUN cd envoy && bazel build //source/exe:envoy-static
