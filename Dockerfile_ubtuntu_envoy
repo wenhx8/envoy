@@ -6,7 +6,7 @@ ARG QEMUARCH
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
-RUN curl -fsSL https://github.com/multiarch/qemu-user-static/releases/download/v${QEMUVERSION}/qemu-${QEMUARCH}-static.tar.gz | tar zxvf - -C /usr/bin
+RUN curl -fsSL https://github.com/multiarch/qemu-user-static/releases/download/v${QEMUVERSION}/qemu-x86_64-static.tar.gz | tar zxvf - -C /usr/bin
 RUN chmod +x /usr/bin/qemu-*
 
 FROM ubuntu:bionic
