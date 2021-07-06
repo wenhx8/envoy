@@ -37,7 +37,7 @@ FROM golang:1.16.5 AS bazel
 ARG TARGETARCH
 RUN set -eux; \
     \
-    wget -O /usr/local/bin/bazel https://github.com/bazelbuild/bazelisk/releases/download/v1.7.4/bazelisk-linux-${TARGETARCH:-arm64}; \
+    wget -O /usr/local/bin/bazel https://github.com/bazelbuild/bazelisk/releases/download/v1.7.4/bazelisk-linux-${TARGETARCH:-amd64}; \
     chmod +x /usr/local/bin/bazel
 
 RUN go get github.com/bazelbuild/buildtools/buildifier
