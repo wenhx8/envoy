@@ -1,4 +1,4 @@
-FROM docker.io/wenhx8/envoy:gn1.0 AS gn
+#FROM docker.io/wenhx8/envoy:gn1.0 AS gn
 FROM ubuntu:18.04 AS clang
 
 RUN apt-get update && apt-get -y dist-upgrade && apt-get install -y --no-install-recommends \
@@ -104,4 +104,4 @@ COPY --from=bazel /go/bin/buildifier /usr/local/bin/buildifier
 COPY --from=bazel /go/bin/buildozer /usr/local/bin/buildozer
 
 # gn
-COPY --from=gn /gn/gn /usr/local/bin/gn
+#COPY --from=gn /gn/gn /usr/local/bin/gn
