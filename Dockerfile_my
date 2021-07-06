@@ -1,0 +1,2 @@
+from docker.io/wenhx8/queryubuntu:1.8
+RUN make build_envoy
