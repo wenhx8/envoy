@@ -13,9 +13,9 @@ FROM ubuntu:bionic
 ARG QEMUARCH
 COPY --from=qemu /usr/bin/qemu-x86_64-static /usr/bin/
 
-COPY ./build_container_common.sh /
-COPY ./build_container_ubuntu.sh /
-
+COPY ./build_container_common.sh /root/build_container_common.sh
+COPY ./build_container_ubuntu.sh /root/build_container_ubuntu.sh
+WORKDIR /root
 RUN ./build_container_ubuntu.sh
 
 ENV LANG en_US.utf8
