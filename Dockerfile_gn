@@ -18,8 +18,8 @@ RUN set -eux; \
     git clone https://gn.googlesource.com/gn; \
     cd gn; \   
     python build/gen.py; \
-    ninja -v -C out; \
-    out/gn_unittests; \
-    mkdir -p /gn; \
-    cp /tmp/gn/out/gn /gn/gn; \
-    /gn/gn --version;
+    ninja -v -C out; 
+RUN    out/gn_unittests; 
+RUN    mkdir -p /gn; 
+RUN    cp /tmp/gn/out/gn /gn/gn; 
+RUN    /gn/gn --version;
